@@ -1,20 +1,20 @@
 {
   "products": [
     {
-      "id": "2",
-      "name": "Tarjeta de Crédito Visa dasdas 54",
-      "description": "Tarjeta de consumo bajo la modalidad de crédito asdsa",
+      "id": "asasdsadsa",
+      "name": "asdsadasdsa",
+      "description": "sadsadasasd54",
       "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2023-02-01",
-      "date_revision": "2024-02-14"
+      "date_release": "2025-05-28",
+      "date_revision": "2026-05-28"
     },
     {
-      "id": "trj-cred",
-      "name": "asdasdadas",
-      "description": "asdasdasa",
-      "logo": "asdasda",
-      "date_release": "2025-05-14",
-      "date_revision": "2025-05-01"
+      "id": "asdasdqqqq",
+      "name": " qqqqqqqqq",
+      "description": "qqqqqqqqqq",
+      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
+      "date_release": "2025-05-27",
+      "date_revision": "2026-05-27"
     }
   ]
 }

@@ -1,60 +1,61 @@
 <header>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Banco_Pichincha_logo.svg/2560px-Banco_Pichincha_logo.svg.png" alt="Logo" class="logo-header" />
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Banco_Pichincha_logo.svg/2560px-Banco_Pichincha_logo.svg.png"
+    alt="Logo" class="logo-header" />
 </header>
 
 <div class="product-list-container">
   <div class="search-and-button">
-    <input
-      type="text"
-      placeholder="Search..."
-      [(ngModel)]="searchTerm"
-      class="search-input"
-    />
+    <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" class="search-input" />
     <button class="add-button" (click)="agregarProducto()">Agregar</button>
   </div>
+  <div style="overflow-x: auto;">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Nombre del producto</th>
+          <th>
+            Descripción
+          </th>
+          <th>
+            Fecha de liberación
+          </th>
+          <th>
+            Fecha de reestructuración
+          </th>
+          <th>Acciones</th>
 
-  <table class="product-table">
-    <thead>
-      <tr>
-        <th>Logo</th>
-        <th>Nombre del producto</th>
-        <th>
-          Descripción
-          <span class="material-icons" style="vertical-align: middle; font-size: 20px; margin-left: 4px;">
-            info
-          </span>
-        </th>
-        <th>
-          Fecha de liberación
-          <span class="material-icons" style="vertical-align: middle; font-size: 20px; margin-left: 4px;">
-            info
-          </span>
-        </th>
-        <th>
-          Fecha de reestructuración
-          <span class="material-icons" style="vertical-align: middle; font-size: 20px; margin-left: 4px;">
-            info
-          </span>
-        </th>
-        <th>Acciones</th>
-      
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let producto of paginated">
-        <td><img [src]="producto.logo" class="logo" alt="logo" /></td>
-        <td>{{ producto.name }}</td>
-        <td>{{ producto.description }}</td>
-        <td>{{ producto.date_release | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ producto.date_revision | date: 'dd/MM/yyyy' }}</td>
-        <td>
-          <button class="btn-edit" (click)="selectProducto(producto)">Editar</button>
-          <button class="btn-delete" (click)="abrirModalEliminar(producto)">Eliminar</button>
-        </td>
-       
-      </tr>
-    </tbody>
-  </table>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of paginated">
+          <td><img [src]="producto.logo" class="logo" alt="logo" /></td>
+          <td>{{ producto.name }}</td>
+          <td>{{ producto.description }}</td>
+          <td>{{ producto.date_release | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ producto.date_revision | date: 'dd/MM/yyyy' }}</td>
+          <td>
+
+            <div class="dropdown">
+
+              <button class="btnDropdown">⁝</button>
+
+              <div class="dropdown-content">
+
+                <button (click)="selectProducto(producto)">Editar</button>
+                <button (click)="abrirModalEliminar(producto)">Eliminar</button>
+
+              </div>
+
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 
   <div class="pagination-container">
     <span>{{ totalResultados }} Resultados</span>

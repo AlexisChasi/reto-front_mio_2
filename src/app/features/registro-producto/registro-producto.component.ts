@@ -25,7 +25,7 @@ export class RegistroProductoComponent {
   modoEdicion = false;
   idVerificadoInvalid = false; // Flag para verificación de ID
 
-  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const productoRecibido = history.state.producto as Producto;
@@ -51,6 +51,29 @@ export class RegistroProductoComponent {
       this.idVerificadoInvalid = false; // Si no cumple el largo, no verificamos
     }
   }
+
+  fechaLiberacionInvalida = false;
+fechaRevisionInvalida = false;
+
+validarFechas(): void {
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0); 
+
+  const fechaLiberacion = new Date(this.producto.date_release);
+  fechaLiberacion.setHours(0, 0, 0, 0);
+
+  const fechaRevision = new Date(this.producto.date_revision);
+  fechaRevision.setHours(0, 0, 0, 0);
+
+ 
+  this.fechaLiberacionInvalida = fechaLiberacion.getTime() < hoy.getTime();
+
+ 
+  const fechaEsperadaRevision = new Date(fechaLiberacion);
+  fechaEsperadaRevision.setFullYear(fechaEsperadaRevision.getFullYear() + 1);
+
+  this.fechaRevisionInvalida = fechaRevision.getTime() !== fechaEsperadaRevision.getTime();
+}
 
   onSubmit(): void {
     if (this.modoEdicion && this.producto.id) {

@@ -1,13 +1,96 @@
 header {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  header img {
-    max-width: 200px;
-    height: auto;
-  }
-  
+  text-align: center;
+  padding: 20px;
+}
+
+header img {
+  max-width: 200px;
+  height: auto;
+}
+
+
+.dropdown {
+position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.btnDropdown {
+
+  background-color: transparent;
+
+  border: none;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  font-size: 24px;
+
+}
+
+
+
+
+.dropdown-content {
+
+  display: none;
+
+  position: absolute;
+
+  right: 0;
+
+  background-color: white;
+
+  min-width: 120px;
+
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+  z-index: 1;
+
+  border-radius: 4px;
+
+}
+
+
+
+
+.dropdown:hover .dropdown-content {
+
+  display: block;
+
+}
+
+
+
+
+.dropdown-content button {
+
+  width: 100%;
+
+  padding: 8px 12px;
+
+  text-align: left;
+
+  background-color: transparent;
+
+  border: none;
+
+  cursor: pointer;
+
+  display: block;
+
+}
+
+
+
+
+.dropdown-content button:hover {
+
+  background-color: #f1f1f1;
+
+}
+
 .product-list-container {
   max-width: 1200px;
   margin: 40px auto;
@@ -20,14 +103,18 @@ header {
 
 .search-and-button {
   display: flex;
-  justify-content: space-between; /* Asegura que los elementos estén separados */
+  justify-content: space-between;
+  /* Asegura que los elementos estén separados */
   align-items: center;
-  width: 100%; /* Hace que el contenedor ocupe todo el ancho disponible */
-  margin-bottom: 20px; /* Espacio debajo */
+  width: 100%;
+  /* Hace que el contenedor ocupe todo el ancho disponible */
+  margin-bottom: 20px;
+  /* Espacio debajo */
 }
 
 .search-input {
-  width: 20%; /* Ocupa la mayor parte del espacio */
+  width: 20%;
+  /* Ocupa la mayor parte del espacio */
   padding: 10px 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -46,7 +133,7 @@ header {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, border-color 0.3s ease;
-  margin-left: 20px; 
+  margin-left: 20px;
 }
 
 
@@ -74,9 +161,9 @@ header {
     }
 
     td {
-      padding: 12px 16px;
+     text-align: center;
       color: #555;
-      vertical-align: middle;
+     
     }
   }
 
@@ -112,6 +199,7 @@ header {
     }
   }
 }
+
 .btn-edit {
   padding: 10px 20px;
   background-color: #dcdcf5;
@@ -120,6 +208,7 @@ header {
   cursor: pointer;
   margin-bottom: 10px;
 }
+
 .btn-delete {
   padding: 10px 20px;
   background-color: #dcdcf5;
@@ -127,6 +216,7 @@ header {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;

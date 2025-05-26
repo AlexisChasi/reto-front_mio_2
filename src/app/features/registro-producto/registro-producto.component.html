@@ -15,6 +15,8 @@
         [(ngModel)]="producto.id"
         #id="ngModel"
         required
+        minlength="3"
+        maxlength="10"
         class="input"
         [readonly]="modoEdicion"
         [class.invalid]="(id.invalid && id.touched || idVerificadoInvalid) && !modoEdicion"
@@ -28,18 +30,23 @@
       </div>
     </div>
 
-    
     <div class="form-group">
       <label>Nombre</label>
       <input
         name="name"
         [(ngModel)]="producto.name"
+        #name="ngModel"
         required
+        minlength="5"
+        maxlength="100"
         class="input"
+        [class.invalid]="name.invalid && name.touched"
       />
+      <div *ngIf="name.invalid && name.touched" class="error-text">
+        Nombre debe tener entre 5 y 100 caracteres
+      </div>
     </div>
 
-  
     <div class="form-group">
       <label>Descripción</label>
       <input
@@ -47,13 +54,16 @@
         [(ngModel)]="producto.description"
         #desc="ngModel"
         required
+        minlength="10"
+        maxlength="200"
         class="input"
         [class.invalid]="desc.invalid && desc.touched"
       />
-      <div *ngIf="desc.invalid && desc.touched" class="error-text">Este campo es requerido!</div>
+      <div *ngIf="desc.invalid && desc.touched" class="error-text">
+        Descripción debe tener entre 10 y 200 caracteres
+      </div>
     </div>
 
-    
     <div class="form-group">
       <label>Logo</label>
       <input
@@ -64,40 +74,50 @@
         class="input"
         [class.invalid]="logo.invalid && logo.touched"
       />
-      <div *ngIf="logo.invalid && logo.touched" class="error-text">Este campo es requerido!</div>
+      <div *ngIf="logo.invalid && logo.touched" class="error-text">Logo es requerido</div>
     </div>
 
-  
     <div class="form-group">
       <label>Fecha Liberación</label>
       <input
         type="date"
         name="date_release"
         [(ngModel)]="producto.date_release"
+        #release="ngModel"
+        required
         class="input"
+        [class.invalid]="release.invalid && release.touched || fechaLiberacionInvalida"
+        (change)="validarFechas()"
       />
+      <div *ngIf="fechaLiberacionInvalida" class="error-text">la Fecha debe ser igual o mayor a la fecha actual</div>
     </div>
 
-  
     <div class="form-group">
       <label>Fecha Revisión</label>
       <input
         type="date"
         name="date_revision"
         [(ngModel)]="producto.date_revision"
+        #revision="ngModel"
+        required
         class="input"
+        [class.invalid]="revision.invalid && revision.touched || fechaRevisionInvalida"
+        (change)="validarFechas()"
       />
+      <div *ngIf="fechaRevisionInvalida" class="error-text">
+        la Fecha debe ser exactamente un año posterior a la fecha de liberación
+      </div>
     </div>
 
-   
     <div class="form-buttons">
       <button type="button" class="btn-reset" (click)="onReset()">Reiniciar</button>
-      <button type="submit" class="btn-submit" [disabled]="!productoForm.form.valid">Enviar</button>
+      <button type="submit" class="btn-submit" [disabled]="!productoForm.valid || fechaLiberacionInvalida || fechaRevisionInvalida || idVerificadoInvalid">
+        Enviar
+      </button>
     </div>
   </form>
-</div>
 
-
-<div class="form-buttons">
-  <button type="button" class="btn-back" (click)="goBack()">Atrás</button>
+  <div class="form-buttons">
+    <button type="button" class="btn-back" (click)="goBack()">Atrás</button>
+  </div>
 </div>
