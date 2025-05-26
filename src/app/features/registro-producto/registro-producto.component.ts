@@ -52,28 +52,27 @@ export class RegistroProductoComponent {
     }
   }
 
+
+
   fechaLiberacionInvalida = false;
-fechaRevisionInvalida = false;
 
-validarFechas(): void {
-  const hoy = new Date();
-  hoy.setHours(0, 0, 0, 0); 
+  onFechaLiberacionChange(): void {
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    const fechaLiberacion = new Date(this.producto.date_release);
+    fechaLiberacion.setHours(0, 0, 0, 0);
+    this.fechaLiberacionInvalida = fechaLiberacion.getTime() < hoy.getTime();
 
-  const fechaLiberacion = new Date(this.producto.date_release);
-  fechaLiberacion.setHours(0, 0, 0, 0);
+    if (!this.fechaLiberacionInvalida) {
 
-  const fechaRevision = new Date(this.producto.date_revision);
-  fechaRevision.setHours(0, 0, 0, 0);
+      const fechaRevision = new Date(fechaLiberacion);
+      fechaRevision.setFullYear(fechaRevision.getFullYear() + 1);
+      this.producto.date_revision = fechaRevision.toISOString().substring(0, 10);
+    } else {
 
- 
-  this.fechaLiberacionInvalida = fechaLiberacion.getTime() < hoy.getTime();
-
- 
-  const fechaEsperadaRevision = new Date(fechaLiberacion);
-  fechaEsperadaRevision.setFullYear(fechaEsperadaRevision.getFullYear() + 1);
-
-  this.fechaRevisionInvalida = fechaRevision.getTime() !== fechaEsperadaRevision.getTime();
-}
+      this.producto.date_revision = '';
+    }
+  }
 
   onSubmit(): void {
     if (this.modoEdicion && this.producto.id) {

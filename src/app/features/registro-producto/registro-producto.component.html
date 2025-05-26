@@ -1,5 +1,7 @@
 <header>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Banco_Pichincha_logo.svg/2560px-Banco_Pichincha_logo.svg.png" alt="Logo" class="logo-header" />
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Banco_Pichincha_logo.svg/2560px-Banco_Pichincha_logo.svg.png"
+    alt="Logo" class="logo-header" />
 </header>
 
 <div class="form-container">
@@ -7,21 +9,12 @@
   <hr />
 
   <form #productoForm="ngForm" (ngSubmit)="onSubmit()" class="form-grid">
-    
+
     <div class="form-group">
       <label>ID</label>
-      <input
-        name="id"
-        [(ngModel)]="producto.id"
-        #id="ngModel"
-        required
-        minlength="3"
-        maxlength="10"
-        class="input"
-        [readonly]="modoEdicion"
-        [class.invalid]="(id.invalid && id.touched || idVerificadoInvalid) && !modoEdicion"
-        (blur)="verificarId()"
-      />
+      <input name="id" [(ngModel)]="producto.id" #id="ngModel" required minlength="3" maxlength="10" class="input"
+        [readonly]="modoEdicion" [class.invalid]="(id.invalid && id.touched || idVerificadoInvalid) && !modoEdicion"
+        (blur)="verificarId()" />
       <div *ngIf="id.invalid && id.touched && !modoEdicion" class="error-text">
         ¡ID debe tener entre 3 y 10 caracteres!
       </div>
@@ -32,16 +25,8 @@
 
     <div class="form-group">
       <label>Nombre</label>
-      <input
-        name="name"
-        [(ngModel)]="producto.name"
-        #name="ngModel"
-        required
-        minlength="5"
-        maxlength="100"
-        class="input"
-        [class.invalid]="name.invalid && name.touched"
-      />
+      <input name="name" [(ngModel)]="producto.name" #name="ngModel" required minlength="5" maxlength="100"
+        class="input" [class.invalid]="name.invalid && name.touched" />
       <div *ngIf="name.invalid && name.touched" class="error-text">
         Nombre debe tener entre 5 y 100 caracteres
       </div>
@@ -49,16 +34,8 @@
 
     <div class="form-group">
       <label>Descripción</label>
-      <input
-        name="description"
-        [(ngModel)]="producto.description"
-        #desc="ngModel"
-        required
-        minlength="10"
-        maxlength="200"
-        class="input"
-        [class.invalid]="desc.invalid && desc.touched"
-      />
+      <input name="description" [(ngModel)]="producto.description" #desc="ngModel" required minlength="10"
+        maxlength="200" class="input" [class.invalid]="desc.invalid && desc.touched" />
       <div *ngIf="desc.invalid && desc.touched" class="error-text">
         Descripción debe tener entre 10 y 200 caracteres
       </div>
@@ -66,52 +43,31 @@
 
     <div class="form-group">
       <label>Logo</label>
-      <input
-        name="logo"
-        [(ngModel)]="producto.logo"
-        #logo="ngModel"
-        required
-        class="input"
-        [class.invalid]="logo.invalid && logo.touched"
-      />
+      <input name="logo" [(ngModel)]="producto.logo" #logo="ngModel" required class="input"
+        [class.invalid]="logo.invalid && logo.touched" />
       <div *ngIf="logo.invalid && logo.touched" class="error-text">Logo es requerido</div>
     </div>
 
     <div class="form-group">
       <label>Fecha Liberación</label>
-      <input
-        type="date"
-        name="date_release"
-        [(ngModel)]="producto.date_release"
-        #release="ngModel"
-        required
-        class="input"
-        [class.invalid]="release.invalid && release.touched || fechaLiberacionInvalida"
-        (change)="validarFechas()"
-      />
-      <div *ngIf="fechaLiberacionInvalida" class="error-text">la Fecha debe ser igual o mayor a la fecha actual</div>
+      <input type="date" name="date_release" [(ngModel)]="producto.date_release" #release="ngModel" required
+        class="input" [class.invalid]="release.invalid && release.touched || fechaLiberacionInvalida"
+        (change)="onFechaLiberacionChange()" />
+      <div *ngIf="fechaLiberacionInvalida" class="error-text">
+        La fecha debe ser igual o mayor a la fecha actual
+      </div>
     </div>
 
     <div class="form-group">
       <label>Fecha Revisión</label>
-      <input
-        type="date"
-        name="date_revision"
-        [(ngModel)]="producto.date_revision"
-        #revision="ngModel"
-        required
-        class="input"
-        [class.invalid]="revision.invalid && revision.touched || fechaRevisionInvalida"
-        (change)="validarFechas()"
-      />
-      <div *ngIf="fechaRevisionInvalida" class="error-text">
-        la Fecha debe ser exactamente un año posterior a la fecha de liberación
-      </div>
+      <input type="date" name="date_revision" [(ngModel)]="producto.date_revision" #revision="ngModel" required
+        class="input" disabled />
     </div>
 
     <div class="form-buttons">
       <button type="button" class="btn-reset" (click)="onReset()">Reiniciar</button>
-      <button type="submit" class="btn-submit" [disabled]="!productoForm.valid || fechaLiberacionInvalida || fechaRevisionInvalida || idVerificadoInvalid">
+      <button type="submit" class="btn-submit"
+        [disabled]="!productoForm.valid || fechaLiberacionInvalida || idVerificadoInvalid">
         Enviar
       </button>
     </div>
