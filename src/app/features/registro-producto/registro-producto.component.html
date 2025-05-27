@@ -8,13 +8,20 @@
   <h2 class="form-title">Formulario de Registro</h2>
   <hr />
 
-  <form #productoForm="ngForm"  class="form-grid">
+  <form #productoForm="ngForm" class="form-grid">
 
     <div class="form-group">
       <label>ID</label>
       <input name="id" [(ngModel)]="producto.id" placeholder="ID entre 3-10 caracteres" #id="ngModel" required
-        pattern="^[a-z-]{3,10}$" minlength="3" maxlength="10" class="input" [readonly]="modoEdicion"
-        [class.invalid]="(id.invalid && id.dirty || idVerificadoInvalid) && !modoEdicion" (blur)="verificarId()" />
+        pattern="^[a-z-]{3,10}$" minlength="3" maxlength="10" class="input" [readonly]="modoEdicion" [ngClass]="{
+    'ng-invalid': (id.invalid || idVerificadoInvalid) && !modoEdicion && id.touched,
+    'ng-valid': id.valid && !idVerificadoInvalid && !modoEdicion && id.touched
+  }" (blur)="verificarId()" />
+
+      <div *ngIf="id.valid && id.touched && !idVerificadoInvalid && !modoEdicion" class="valid-text">
+        ID válido
+      </div>
+
 
       <div *ngIf="id.invalid && (id.dirty || id.touched) && !modoEdicion" class="error-text">
         <ng-container *ngIf="id.errors?.['required']">¡ID es requerido!</ng-container>
@@ -38,6 +45,9 @@
       <input name="name" [(ngModel)]="producto.name" placeholder="Nombre y Apellido 5-100 caracteres"
         pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ ]{5,100}$" #name="ngModel" required minlength="5" maxlength="100" class="input"
         [class.invalid]="name.invalid && (name.dirty || name.touched)" />
+      <div *ngIf="name.valid && name.touched" class="valid-text">
+        Nombre válido
+      </div>
 
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-text">
         <ng-container *ngIf="name.errors?.['required']">¡Nombre es requerido!</ng-container>
@@ -57,6 +67,9 @@
       <input name="description" [(ngModel)]="producto.description" pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9 ]{10,200}$"
         placeholder="Ingrese de 10-200 caracteres" #desc="ngModel" required minlength="10" maxlength="200" class="input"
         [class.invalid]="desc.invalid && (desc.dirty || desc.touched)" />
+      <div *ngIf="desc.valid && desc.touched" class="valid-text">
+        Descripción válida
+      </div>
 
       <div *ngIf="desc.invalid && (desc.dirty || desc.touched)" class="error-text">
         <ng-container *ngIf="desc.errors?.['required']">¡Descripción es requerida!</ng-container>
@@ -76,6 +89,9 @@
       <label>Logo</label>
       <input name="logo" [(ngModel)]="producto.logo" pattern="https?:\/\/[\S]+" placeholder="URL" #logo="ngModel"
         required class="input" [class.invalid]="logo.invalid && (logo.dirty || logo.touched)" />
+      <div *ngIf="logo.valid && logo.touched" class="valid-text">
+        URL válida
+      </div>
 
       <div *ngIf="logo.invalid && (logo.dirty || logo.touched)" class="error-text">
         <ng-container *ngIf="logo.errors?.['required']">Logo es requerido</ng-container>
@@ -89,16 +105,14 @@
 
     <div class="form-group">
       <label>Fecha Liberación</label>
-      <input type="date"
-       name="date_release"
-        [(ngModel)]="producto.date_release"
-       [min]="minFechaHoy"
-       #release="ngModel"
-       required
-       class="input"
-       [class.invalid]="(release.invalid && (release.dirty || release.touched)) || fechaLiberacionInvalida"
-       (change)="onFechaLiberacionChange()" />
+      <input type="date" name="date_release" [(ngModel)]="producto.date_release" [min]="minFechaHoy" #release="ngModel"
+        required class="input"
+        [class.invalid]="(release.invalid && (release.dirty || release.touched)) || fechaLiberacionInvalida"
+        (change)="onFechaLiberacionChange()" />
 
+      <div *ngIf="release.valid && release.touched && !fechaLiberacionInvalida" class="valid-text">
+        Fecha válida
+      </div>
 
       <div *ngIf="(release.invalid && (release.dirty || release.touched)) || fechaLiberacionInvalida"
         class="error-text">
@@ -117,10 +131,9 @@
     <div class="form-buttons">
       <button type="button" class="btn-reset" (click)="onReset()">Reiniciar</button>
       <button type="button" class="btn-submit"
-        [disabled]="!productoForm.valid || fechaLiberacionInvalida || idVerificadoInvalid"
-        (click)="onSubmit()">
-  Enviar
-</button>
+        [disabled]="!productoForm.valid || fechaLiberacionInvalida || idVerificadoInvalid" (click)="onSubmit()">
+        Enviar
+      </button>
     </div>
   </form>
 
@@ -136,10 +149,8 @@
     <p>✅ ¡Producto agregado con éxito!</p>
     <hr />
     <div class="modal-buttons">
-      
+
       <button class="btn-confirmar" (click)="irAlFormularioPrincipal()">Aceptar</button>
     </div>
   </div>
 </div>
-
-
