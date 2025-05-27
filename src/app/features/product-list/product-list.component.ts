@@ -1,42 +1,35 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Producto } from '../../core/models/producto.interface';
 import { ProductService } from '../../core/services/product.service';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  imports: [CommonModule, FormsModule],
-  styleUrls: ['./product-list.component.scss']
+  styleUrls: ['./product-list.component.scss'],
+  imports: [CommonModule, FormsModule]
 })
 export class ProductListComponent implements OnInit {
   productos: Producto[] = [];
   searchTerm = '';
   pageSize = 5;
   currentPage = 1;
-
-  selectedProducto?: Producto;
-  productoSeleccionado: any = null;
+  productoSeleccionado: Producto | null = null;
   mostrarModal = false;
 
-  constructor(private productService: ProductService, private router: Router) { }
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarProductos();
-    this.productService.getProductos().subscribe({
-      next: (data) => this.productos = data,
-      error: () => alert('Error cargando productos')
-    });
   }
 
   get filtered(): Producto[] {
     const term = this.searchTerm.toLowerCase();
     return this.productos.filter(p =>
-      (p.name && p.name.toLowerCase().includes(term)) ||
-      (p.description && p.description.toLowerCase().includes(term))
+      p.name?.toLowerCase().includes(term) || p.description?.toLowerCase().includes(term)
     );
   }
 
@@ -48,50 +41,35 @@ export class ProductListComponent implements OnInit {
   get totalResultados(): number {
     return this.filtered.length;
   }
+
   get totalPaginas(): number {
     return Math.ceil(this.totalResultados / this.pageSize);
   }
 
   paginaAnterior(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
+    if (this.currentPage > 1) this.currentPage--;
   }
 
   paginaSiguiente(): void {
-    if (this.currentPage < this.totalPaginas) {
-      this.currentPage++;
-    }
-  }
-
-  onPageSizeChange(size: number) {
-    this.pageSize = size;
-    this.currentPage = 1;
-  }
-
-  selectProducto(producto: Producto) {
-    this.router.navigate(['/registrar'], { state: { producto } });
+    if (this.currentPage < this.totalPaginas) this.currentPage++;
   }
 
   agregarProducto(): void {
     this.router.navigate(['/registrar']);
   }
 
-  cargarProductos(): void {
-    this.productService.getProductos().subscribe((data) => {
-      this.productos = data;
-    });
-  }
-  eliminarProducto(id: string): void {
-    if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
-      this.productService.deleteProducto(id).subscribe(() => {
-        alert('¡Producto eliminado con éxito!');
-        this.cargarProductos();
-      });
-    }
+  selectProducto(producto: Producto): void {
+    this.router.navigate(['/registrar'], { state: { producto } });
   }
 
-  abrirModalEliminar(producto: any): void {
+  cargarProductos(): void {
+    this.productService.getProductos().subscribe({
+      next: (data) => this.productos = data,
+      error: () => alert('Error cargando productos')
+    });
+  }
+
+  abrirModalEliminar(producto: Producto): void {
     this.productoSeleccionado = producto;
     this.mostrarModal = true;
   }
@@ -109,5 +87,4 @@ export class ProductListComponent implements OnInit {
       });
     }
   }
-
 }
