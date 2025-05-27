@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../core/services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Producto } from '../../core/models/producto.interface';
   templateUrl: './registro-producto.component.html',
   styleUrl: './registro-producto.component.scss'
 })
-export class RegistroProductoComponent {
+export class RegistroProductoComponent implements OnInit {
 
   producto = {
     id: '',
@@ -22,28 +22,35 @@ export class RegistroProductoComponent {
     date_release: '',
     date_revision: ''
   };
+
   modoEdicion = false;
   idVerificadoInvalid = false;
+  fechaLiberacionInvalida = false;
+  minFechaHoy = new Date().toISOString().split('T')[0];
 
-  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
+  mostrarModal = false; // 👉 Modal de éxito
+
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     const productoRecibido = history.state.producto as Producto;
-
     if (productoRecibido) {
       this.producto = productoRecibido;
       this.modoEdicion = true;
     }
   }
 
-  
   verificarId(): void {
     if (this.producto.id.length >= 3 && this.producto.id.length <= 10) {
       this.productService.verificarId(this.producto.id).subscribe(
         (exists) => {
           this.idVerificadoInvalid = exists;
         },
-        (error) => {
+        () => {
           this.idVerificadoInvalid = true;
         }
       );
@@ -52,52 +59,40 @@ export class RegistroProductoComponent {
     }
   }
 
-
-
-  fechaLiberacionInvalida = false;
-  minFechaHoy = new Date().toISOString().split('T')[0];
-
   onFechaLiberacionChange(): void {
-  const hoy = new Date();
-  const yyyy = hoy.getFullYear();
-  const mm = (hoy.getMonth() + 1).toString().padStart(2, '0');
-  const dd = hoy.getDate().toString().padStart(2, '0');
+    const hoy = new Date();
+    const yyyy = hoy.getFullYear();
+    const mm = (hoy.getMonth() + 1).toString().padStart(2, '0');
+    const dd = hoy.getDate().toString().padStart(2, '0');
+    const hoyStr = `${yyyy}-${mm}-${dd}`;
+    const fechaIngresadaStr = this.producto.date_release;
 
-  const hoyStr = `${yyyy}-${mm}-${dd}`; 
+    this.fechaLiberacionInvalida = fechaIngresadaStr < hoyStr;
 
-  const fechaIngresadaStr = this.producto.date_release;
-
-  this.fechaLiberacionInvalida = fechaIngresadaStr < hoyStr;
-
-  if (!this.fechaLiberacionInvalida) {
-    const fechaRevision = new Date(fechaIngresadaStr);
-    fechaRevision.setFullYear(fechaRevision.getFullYear() + 1);
-    this.producto.date_revision = fechaRevision.toISOString().split('T')[0];
-  } else {
-    this.producto.date_revision = '';
+    if (!this.fechaLiberacionInvalida) {
+      const fechaRevision = new Date(fechaIngresadaStr);
+      fechaRevision.setFullYear(fechaRevision.getFullYear() + 1);
+      this.producto.date_revision = fechaRevision.toISOString().split('T')[0];
+    } else {
+      this.producto.date_revision = '';
+    }
   }
-}
-
-
-
 
   onSubmit(): void {
     if (this.modoEdicion && this.producto.id) {
       const idString = String(this.producto.id);
       this.productService.updateProducto(idString, this.producto).subscribe(() => {
-        alert('¡Producto actualizado con éxito!');
-        this.router.navigate(['']);
+        this.mostrarModal = true; 
       });
     } else {
       this.productService.createProducto(this.producto).subscribe(() => {
-        alert('¡Producto creado con éxito!');
-        this.router.navigate(['']);
-        this.onReset();
+        
+        this.mostrarModal = true; 
       });
     }
   }
 
-  onReset() {
+  onReset(): void {
     this.producto = {
       id: '',
       name: '',
@@ -109,7 +104,21 @@ export class RegistroProductoComponent {
     this.idVerificadoInvalid = false;
   }
 
-  goBack() {
+  goBack(): void {
     this.router.navigate(['']);
+  }
+
+  
+  irAlFormularioPrincipal(): void {
+    this.mostrarModal = false;
+    this.router.navigate(['']);
+  }
+
+  
+
+  productoFormValido(): boolean {
+    return this.producto &&
+           !this.fechaLiberacionInvalida &&
+           !this.idVerificadoInvalid;
   }
 }

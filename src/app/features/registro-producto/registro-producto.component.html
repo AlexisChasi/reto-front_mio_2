@@ -8,7 +8,7 @@
   <h2 class="form-title">Formulario de Registro</h2>
   <hr />
 
-  <form #productoForm="ngForm" (ngSubmit)="onSubmit()" class="form-grid">
+  <form #productoForm="ngForm"  class="form-grid">
 
     <div class="form-group">
       <label>ID</label>
@@ -116,10 +116,11 @@
 
     <div class="form-buttons">
       <button type="button" class="btn-reset" (click)="onReset()">Reiniciar</button>
-      <button type="submit" class="btn-submit"
-        [disabled]="!productoForm.valid || fechaLiberacionInvalida || idVerificadoInvalid">
-        Enviar
-      </button>
+      <button type="button" class="btn-submit"
+        [disabled]="!productoForm.valid || fechaLiberacionInvalida || idVerificadoInvalid"
+        (click)="onSubmit()">
+  Enviar
+</button>
     </div>
   </form>
 
@@ -127,3 +128,18 @@
     <button type="button" class="btn-back" (click)="goBack()">Atrás</button>
   </div>
 </div>
+
+
+
+<div class="modal-overlay" *ngIf="mostrarModal">
+  <div class="modal">
+    <p>✅ ¡Producto agregado con éxito!</p>
+    <hr />
+    <div class="modal-buttons">
+      
+      <button class="btn-confirmar" (click)="irAlFormularioPrincipal()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+
