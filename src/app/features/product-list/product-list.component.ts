@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
   productoSeleccionado: any = null;
   mostrarModal = false;
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     this.cargarProductos();
@@ -35,7 +35,7 @@ export class ProductListComponent implements OnInit {
   get filtered(): Producto[] {
     const term = this.searchTerm.toLowerCase();
     return this.productos.filter(p =>
-      (p.name && p.name.toLowerCase().includes(term)) || 
+      (p.name && p.name.toLowerCase().includes(term)) ||
       (p.description && p.description.toLowerCase().includes(term))
     );
   }
@@ -48,6 +48,21 @@ export class ProductListComponent implements OnInit {
   get totalResultados(): number {
     return this.filtered.length;
   }
+  get totalPaginas(): number {
+    return Math.ceil(this.totalResultados / this.pageSize);
+  }
+
+  paginaAnterior(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  paginaSiguiente(): void {
+    if (this.currentPage < this.totalPaginas) {
+      this.currentPage++;
+    }
+  }
 
   onPageSizeChange(size: number) {
     this.pageSize = size;
@@ -57,7 +72,7 @@ export class ProductListComponent implements OnInit {
   selectProducto(producto: Producto) {
     this.router.navigate(['/registrar'], { state: { producto } });
   }
-  
+
   agregarProducto(): void {
     this.router.navigate(['/registrar']);
   }
@@ -71,7 +86,7 @@ export class ProductListComponent implements OnInit {
     if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
       this.productService.deleteProducto(id).subscribe(() => {
         alert('¡Producto eliminado con éxito!');
-        this.cargarProductos(); 
+        this.cargarProductos();
       });
     }
   }
@@ -85,14 +100,14 @@ export class ProductListComponent implements OnInit {
     this.mostrarModal = false;
     this.productoSeleccionado = null;
   }
-  
+
   confirmarEliminacion(): void {
     if (this.productoSeleccionado) {
       this.productService.deleteProducto(this.productoSeleccionado.id).subscribe(() => {
-        this.cargarProductos(); 
+        this.cargarProductos();
         this.cerrarModal();
       });
     }
   }
-  
+
 }

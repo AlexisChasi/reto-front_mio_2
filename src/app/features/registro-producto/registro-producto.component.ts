@@ -23,7 +23,7 @@ export class RegistroProductoComponent {
     date_revision: ''
   };
   modoEdicion = false;
-  idVerificadoInvalid = false; // Flag para verificación de ID
+  idVerificadoInvalid = false;
 
   constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
 
@@ -36,47 +36,54 @@ export class RegistroProductoComponent {
     }
   }
 
-  // Método para verificar el ID
+  
   verificarId(): void {
     if (this.producto.id.length >= 3 && this.producto.id.length <= 10) {
       this.productService.verificarId(this.producto.id).subscribe(
         (exists) => {
-          this.idVerificadoInvalid = exists; // Si existe, se marca como no válido
+          this.idVerificadoInvalid = exists;
         },
         (error) => {
-          this.idVerificadoInvalid = true; // Si hay un error en la consulta, se asume que el ID no es válido
+          this.idVerificadoInvalid = true;
         }
       );
     } else {
-      this.idVerificadoInvalid = false; // Si no cumple el largo, no verificamos
+      this.idVerificadoInvalid = false;
     }
   }
 
 
 
   fechaLiberacionInvalida = false;
+  minFechaHoy = new Date().toISOString().split('T')[0];
 
   onFechaLiberacionChange(): void {
-    const hoy = new Date();
-    hoy.setHours(0, 0, 0, 0);
-    const fechaLiberacion = new Date(this.producto.date_release);
-    fechaLiberacion.setHours(0, 0, 0, 0);
-    this.fechaLiberacionInvalida = fechaLiberacion.getTime() < hoy.getTime();
+  const hoy = new Date();
+  const yyyy = hoy.getFullYear();
+  const mm = (hoy.getMonth() + 1).toString().padStart(2, '0');
+  const dd = hoy.getDate().toString().padStart(2, '0');
 
-    if (!this.fechaLiberacionInvalida) {
+  const hoyStr = `${yyyy}-${mm}-${dd}`; 
 
-      const fechaRevision = new Date(fechaLiberacion);
-      fechaRevision.setFullYear(fechaRevision.getFullYear() + 1);
-      this.producto.date_revision = fechaRevision.toISOString().substring(0, 10);
-    } else {
+  const fechaIngresadaStr = this.producto.date_release;
 
-      this.producto.date_revision = '';
-    }
+  this.fechaLiberacionInvalida = fechaIngresadaStr < hoyStr;
+
+  if (!this.fechaLiberacionInvalida) {
+    const fechaRevision = new Date(fechaIngresadaStr);
+    fechaRevision.setFullYear(fechaRevision.getFullYear() + 1);
+    this.producto.date_revision = fechaRevision.toISOString().split('T')[0];
+  } else {
+    this.producto.date_revision = '';
   }
+}
+
+
+
 
   onSubmit(): void {
     if (this.modoEdicion && this.producto.id) {
-      const idString = String(this.producto.id); // Convertir el ID a cadena
+      const idString = String(this.producto.id);
       this.productService.updateProducto(idString, this.producto).subscribe(() => {
         alert('¡Producto actualizado con éxito!');
         this.router.navigate(['']);
@@ -99,7 +106,7 @@ export class RegistroProductoComponent {
       date_release: '',
       date_revision: ''
     };
-    this.idVerificadoInvalid = false; // Reseteamos la verificación del ID
+    this.idVerificadoInvalid = false;
   }
 
   goBack() {

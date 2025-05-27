@@ -9,62 +9,59 @@
     <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" class="search-input" />
     <button class="add-button" (click)="agregarProducto()">Agregar</button>
   </div>
+
   <div style="overflow-x: auto;">
     <table class="product-table">
       <thead>
         <tr>
           <th>Logo</th>
           <th>Nombre del producto</th>
-          <th>
-            Descripción
-          </th>
-          <th>
-            Fecha de liberación
-          </th>
-          <th>
-            Fecha de reestructuración
-          </th>
+          <th>Descripción</th>
+          <th>Fecha de liberación</th>
+          <th>Fecha de reestructuración</th>
           <th>Acciones</th>
-
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let producto of paginated">
-          <td><img [src]="producto.logo" class="logo" alt="logo" /></td>
-          <td>{{ producto.name }}</td>
-          <td>{{ producto.description }}</td>
-          <td>{{ producto.date_release | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ producto.date_revision | date: 'dd/MM/yyyy' }}</td>
-          <td>
+  <tr *ngFor="let producto of paginated">
+    <td data-label="Logo"><img [src]="producto.logo" class="logo" alt="logo" /></td>
+    <td data-label="Nombre del producto">{{ producto.name }}</td>
+    <td data-label="Descripción">{{ producto.description }}</td>
+    <td data-label="Fecha de liberación">{{ producto.date_release | date: 'dd/MM/yyyy' }}</td>
+    <td data-label="Fecha de reestructuración">{{ producto.date_revision | date: 'dd/MM/yyyy' }}</td>
+    <td data-label="Acciones">
+      <div class="dropdown">
+        <button class="btnDropdown">⁝</button>
+        <div class="dropdown-content">
+          <button (click)="selectProducto(producto)">Editar</button>
+          <button (click)="abrirModalEliminar(producto)">Eliminar</button>
+        </div>
+      </div>
+    </td>
+  </tr>
+</tbody>
 
-            <div class="dropdown">
-
-              <button class="btnDropdown">⁝</button>
-
-              <div class="dropdown-content">
-
-                <button (click)="selectProducto(producto)">Editar</button>
-                <button (click)="abrirModalEliminar(producto)">Eliminar</button>
-
-              </div>
-
-            </div>
-          </td>
-
-        </tr>
-      </tbody>
     </table>
   </div>
 
 
   <div class="pagination-container">
     <span>{{ totalResultados }} Resultados</span>
-    <select [(ngModel)]="pageSize" (change)="onPageSizeChange(pageSize)">
-      <option *ngFor="let size of [5, 10, 20]" [value]="size">{{ size }}</option>
-    </select>
+
+    <div class="pagination-controls">
+      <span class="page-info">Página {{ currentPage }} de {{ totalPaginas }}</span>
+      <button class="pagination-button" (click)="paginaAnterior()" [disabled]="currentPage === 1">
+        &lt;
+      </button>
+      <button class="pagination-button" (click)="paginaSiguiente()" [disabled]="currentPage === totalPaginas">
+        &gt;
+      </button>
+    </div>
   </div>
 
+
 </div>
+
 
 <div class="modal-overlay" *ngIf="mostrarModal">
   <div class="modal">

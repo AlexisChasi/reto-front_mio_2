@@ -12,51 +12,101 @@
 
     <div class="form-group">
       <label>ID</label>
-      <input name="id" [(ngModel)]="producto.id" placeholder="ID entre 3-10 caracteres"  #id="ngModel" required minlength="3" maxlength="10" class="input"
-        [readonly]="modoEdicion" [class.invalid]="(id.invalid && id.dirty || idVerificadoInvalid) && !modoEdicion"
-        (blur)="verificarId()" />
-      <div *ngIf="id.invalid && id.dirty && !modoEdicion" class="error-text">
-        ¡ID debe tener entre 3 y 10 caracteres!
+      <input name="id" [(ngModel)]="producto.id" placeholder="ID entre 3-10 caracteres" #id="ngModel" required
+        pattern="^[a-z-]{3,10}$" minlength="3" maxlength="10" class="input" [readonly]="modoEdicion"
+        [class.invalid]="(id.invalid && id.dirty || idVerificadoInvalid) && !modoEdicion" (blur)="verificarId()" />
+
+      <div *ngIf="id.invalid && (id.dirty || id.touched) && !modoEdicion" class="error-text">
+        <ng-container *ngIf="id.errors?.['required']">¡ID es requerido!</ng-container>
+        <ng-container *ngIf="id.errors?.['minlength'] || id.errors?.['maxlength']">
+          ¡ID debe tener entre 3 y 10 caracteres!
+        </ng-container>
+        <ng-container *ngIf="id.errors?.['pattern']">
+          El ID solo puede contener letras minúsculas y guiones.
+        </ng-container>
+
       </div>
+
       <div *ngIf="idVerificadoInvalid && !modoEdicion" class="error-text">
         ¡ID ya existe!
       </div>
     </div>
 
+
     <div class="form-group">
       <label>Nombre</label>
-      <input name="name" [(ngModel)]="producto.name" placeholder="Nombre y Apellido 5-100 caracteres"  #name="ngModel" required minlength="5" maxlength="100"
-        class="input" [class.invalid]="name.invalid && name.dirty" />
-      <div *ngIf="name.invalid && name.dirty" class="error-text">
-        Nombre debe tener entre 5 y 100 caracteres
+      <input name="name" [(ngModel)]="producto.name" placeholder="Nombre y Apellido 5-100 caracteres"
+        pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ ]{5,100}$" #name="ngModel" required minlength="5" maxlength="100" class="input"
+        [class.invalid]="name.invalid && (name.dirty || name.touched)" />
+
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-text">
+        <ng-container *ngIf="name.errors?.['required']">¡Nombre es requerido!</ng-container>
+        <ng-container *ngIf="name.errors?.['minlength'] || name.errors?.['maxlength']">
+          Nombre debe tener entre 5 y 100 caracteres
+        </ng-container>
+        <ng-container *ngIf="name.errors?.['pattern']">
+          El nombre solo puede contener letras y espacios.
+        </ng-container>
+
       </div>
     </div>
+
 
     <div class="form-group">
       <label>Descripción</label>
-      <input name="description" [(ngModel)]="producto.description" placeholder="Ingrese de 10-200 caracteres"  #desc="ngModel" required minlength="10"
-        maxlength="200" class="input" [class.invalid]="desc.invalid && desc.dirty" />
-      <div *ngIf="desc.invalid && desc.dirty" class="error-text">
-        Descripción debe tener entre 10 y 200 caracteres
+      <input name="description" [(ngModel)]="producto.description" pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9 ]{10,200}$"
+        placeholder="Ingrese de 10-200 caracteres" #desc="ngModel" required minlength="10" maxlength="200" class="input"
+        [class.invalid]="desc.invalid && (desc.dirty || desc.touched)" />
+
+      <div *ngIf="desc.invalid && (desc.dirty || desc.touched)" class="error-text">
+        <ng-container *ngIf="desc.errors?.['required']">¡Descripción es requerida!</ng-container>
+        <ng-container *ngIf="desc.errors?.['minlength'] || desc.errors?.['maxlength']">
+          Descripción debe tener entre 10 y 200 caracteres
+        </ng-container>
+        <ng-container *ngIf="desc.errors?.['pattern']">
+          La descripción solo puede contener letras, números y espacios.
+        </ng-container>
+
+
       </div>
     </div>
+
 
     <div class="form-group">
       <label>Logo</label>
-      <input name="logo" [(ngModel)]="producto.logo" placeholder="URL" #logo="ngModel" required class="input"
-        [class.invalid]="logo.invalid && logo.dirty" />
-      <div *ngIf="logo.invalid && logo.dirty" class="error-text">Logo requerido</div>
+      <input name="logo" [(ngModel)]="producto.logo" pattern="https?:\/\/[\S]+" placeholder="URL" #logo="ngModel"
+        required class="input" [class.invalid]="logo.invalid && (logo.dirty || logo.touched)" />
+
+      <div *ngIf="logo.invalid && (logo.dirty || logo.touched)" class="error-text">
+        <ng-container *ngIf="logo.errors?.['required']">Logo es requerido</ng-container>
+        <ng-container *ngIf="logo.errors?.['pattern']">
+          Ingresa una URL válida que comience con http o https.
+        </ng-container>
+
+      </div>
     </div>
+
 
     <div class="form-group">
       <label>Fecha Liberación</label>
-      <input type="date" name="date_release" [(ngModel)]="producto.date_release" #release="ngModel" required
-        class="input" [class.invalid]="release.invalid && release.dirty || fechaLiberacionInvalida"
-        (change)="onFechaLiberacionChange()" />
-      <div *ngIf="fechaLiberacionInvalida" class="error-text">
-        La fecha debe ser igual o mayor a la fecha actual
+      <input type="date"
+       name="date_release"
+        [(ngModel)]="producto.date_release"
+       [min]="minFechaHoy"
+       #release="ngModel"
+       required
+       class="input"
+       [class.invalid]="(release.invalid && (release.dirty || release.touched)) || fechaLiberacionInvalida"
+       (change)="onFechaLiberacionChange()" />
+
+
+      <div *ngIf="(release.invalid && (release.dirty || release.touched)) || fechaLiberacionInvalida"
+        class="error-text">
+        <ng-container *ngIf="release.errors?.['required']">Fecha de liberación es requerida</ng-container>
+        <ng-container *ngIf="fechaLiberacionInvalida">La fecha debe ser igual o mayor a la fecha actual</ng-container>
       </div>
     </div>
+
 
     <div class="form-group">
       <label>Fecha Revisión</label>

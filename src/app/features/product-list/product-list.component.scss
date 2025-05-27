@@ -8,52 +8,6 @@ header img {
   height: auto;
 }
 
-
-.dropdown {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.btnDropdown {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 24px;
-
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: white;
-  min-width: 120px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  border-radius: 4px;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content button {
-  width: 100%;
-  padding: 8px 12px;
-  text-align: left;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  display: block;
-
-}
-
-.dropdown-content button:hover {
-  background-color: #f1f1f1;
-}
-
 .product-list-container {
   max-width: 1200px;
   margin: 40px auto;
@@ -70,16 +24,18 @@ header img {
   align-items: center;
   width: 100%;
   margin-bottom: 20px;
-
+  gap: 10px;
 }
 
 .search-input {
-  width: 20%;
+  flex: 1;
+  max-width: 300px;
   padding: 10px 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
   outline: none;
+  box-sizing: border-box;
 }
 
 .add-button {
@@ -90,89 +46,121 @@ header img {
   border-radius: 8px;
   font-size: 14px;
   cursor: pointer;
+  white-space: nowrap;
   transition: background-color 0.3s ease, border-color 0.3s ease;
-  margin-left: 20px;
 }
 
 .product-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-
-  thead {
-    background-color: #f8f9fa;
-
-    th {
-      text-align: center;
-      padding: 12px 16px;
-      font-weight: 600;
-      color: #333;
-    }
-  }
-
-  tbody tr {
-    border-bottom: 1px solid #e9ecef;
-
-    &:hover {
-      background-color: #f1f3f5;
-    }
-
-    td {
-      text-align: center;
-      color: #555;
-
-    }
-  }
-
-  .logo {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    border-radius: 8px;
-    background-color: #f2f2f2;
-    padding: 4px;
-  }
+  font-size: 14px;
 }
+
+.product-table thead {
+  background-color: #f8f9fa;
+}
+
+.product-table th {
+  text-align: center;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.product-table td {
+  text-align: center;
+  color: #555;
+  padding: 10px;
+}
+
+.product-table .logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  padding: 4px;
+}
+
+
+
+.dropdown {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.btnDropdown {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content button {
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content button:hover {
+  background-color: #f1f1f1;
+}
+
+
 
 .pagination-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-
-  span {
-    color: #666;
-  }
-
-  select {
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-
-    &:focus {
-      outline: none;
-      border-color: #0057b8;
-    }
-  }
+  margin-top: 20px;
 }
 
-.btn-edit {
-  padding: 10px 20px;
-  background-color: #dcdcf5;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 10px;
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.btn-delete {
-  padding: 10px 20px;
-  background-color: #dcdcf5;
-  border: none;
-  border-radius: 4px;
+.page-info {
+  font-weight: 500;
+  color: #444;
+}
+
+.pagination-button {
+  width: 32px;
+  height: 32px;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
 }
+
+
 
 .modal-overlay {
   position: fixed;
@@ -201,19 +189,86 @@ header img {
   margin-top: 20px;
 }
 
-.btn-cancelar {
-  background-color: #f0f0f5;
-  color: #2d2f7f;
+.btn-cancelar,
+.btn-confirmar {
   padding: 8px 16px;
   border-radius: 6px;
   border: none;
 }
 
+.btn-cancelar {
+  background-color: #f0f0f5;
+  color: #2d2f7f;
+}
+
 .btn-confirmar {
   background-color: #ffdd00;
   color: rgb(0, 0, 0);
+}
 
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: none;
+
+@media (max-width: 768px) {
+  .search-and-button {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input,
+  .add-button {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .product-table thead {
+    display: none;
+  }
+
+  .product-table tbody tr {
+    display: block;
+    margin-bottom: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #f8f9fa;
+  }
+
+  .product-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    padding: 6px 0;
+    border-bottom: 1px solid #ddd;
+    word-break: break-word;
+    white-space: normal;
+    gap: 10px;
+  }
+
+  .product-table td[data-label="Logo"] {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .product-table td[data-label="Acciones"] {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .product-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #444;
+    flex-shrink: 0;
+  }
+
+  .product-table td:last-child {
+    border-bottom: none;
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 }
