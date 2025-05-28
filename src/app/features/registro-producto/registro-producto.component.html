@@ -12,11 +12,25 @@
 
     <div class="form-group">
       <label>ID</label>
-      <input name="id" [(ngModel)]="producto.id" placeholder="ID entre 3-10 caracteres" #id="ngModel" required
-        pattern="^[a-z-]{3,10}$" minlength="3" maxlength="10" class="input" [readonly]="modoEdicion" [ngClass]="{
+      <input
+  name="id"
+  [(ngModel)]="producto.id"
+  placeholder="ID entre 3-10 caracteres"
+  #id="ngModel"
+  class="input"
+  [disabled]="modoEdicion"
+  [readonly]="modoEdicion"
+  [required]="!modoEdicion"
+  [pattern]="!modoEdicion ? '^[a-z-]{3,10}$' : ''"
+  [minlength]="!modoEdicion ? 3 : null"
+  [maxlength]="!modoEdicion ? 10 : null"
+  [ngClass]="{
     'ng-invalid': (id.invalid || idVerificadoInvalid) && !modoEdicion && id.touched,
     'ng-valid': id.valid && !idVerificadoInvalid && !modoEdicion && id.touched
-  }" (blur)="verificarId()" />
+  }"
+  (blur)="verificarId()" />
+
+
 
       <div *ngIf="id.valid && id.touched && !idVerificadoInvalid && !modoEdicion" class="valid-text">
         ID válido
@@ -129,11 +143,13 @@
     </div>
 
     <div class="form-buttons">
-      <button type="button" class="btn-reset" (click)="onReset()">Reiniciar</button>
+      <button type="button" class="btn-reset" (click)="onReset()" [disabled]="modoEdicion">Reiniciar</button>
       <button type="button" class="btn-submit"
-        [disabled]="!productoForm.valid || fechaLiberacionInvalida || idVerificadoInvalid" (click)="onSubmit()">
+        [disabled]="!productoForm.valid || fechaLiberacionInvalida || (!modoEdicion && idVerificadoInvalid)"
+        (click)="onSubmit()">
         Enviar
       </button>
+
     </div>
   </form>
 

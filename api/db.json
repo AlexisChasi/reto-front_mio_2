@@ -3,15 +3,15 @@
     {
       "id": "visa-classic",
       "name": "Visa Classic",
-      "description": "Tarjeta de crédito básica con aceptación mundial.",
+      "description": "Tarjeta de crédito básica con aceptación mundial 65",
       "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Find%20a%20Card/Credit%20cards/Classic/visa_classic_card_400x225.jpg",
       "date_release": "2025-05-28",
       "date_revision": "2026-05-27"
     },
     {
       "id": "visa-signature",
-      "name": "Visa Signature",
-      "description": "Tarjeta premium con beneficios exclusivos para viajes y entretenimiento.",
+      "name": "Visa Signature new",
+      "description": "Tarjeta premium con beneficios exclusivos para viajes y entretenimiento 25",
       "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
       "date_release": "2025-05-27",
       "date_revision": "2026-05-27"

@@ -44,20 +44,24 @@ export class RegistroProductoComponent implements OnInit {
     }
   }
 
-  verificarId(): void {
-    if (this.producto.id.length >= 3 && this.producto.id.length <= 10) {
-      this.productService.verificarId(this.producto.id).subscribe(
-        (exists) => {
-          this.idVerificadoInvalid = exists;
-        },
-        () => {
-          this.idVerificadoInvalid = true;
-        }
-      );
-    } else {
-      this.idVerificadoInvalid = false;
-    }
+ verificarId(): void {
+  if (this.modoEdicion) return; 
+
+  if (this.producto.id.length >= 3 && this.producto.id.length <= 10) {
+    this.productService.verificarId(this.producto.id).subscribe(
+      (exists) => {
+        this.idVerificadoInvalid = exists;
+      },
+      () => {
+        this.idVerificadoInvalid = true;
+      }
+    );
+  } else {
+    this.idVerificadoInvalid = false;
   }
+}
+
+
 
   onFechaLiberacionChange(): void {
     const hoy = new Date();
