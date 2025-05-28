@@ -1,132 +1,68 @@
 {
   "products": [
     {
-      "id": "asasdsadsa",
-      "name": "asdsadasdsa",
-      "description": "sadsadasasd54dsadsa",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
+      "id": "visa-classic",
+      "name": "Visa Classic",
+      "description": "Tarjeta de crédito básica con aceptación mundial.",
+      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Find%20a%20Card/Credit%20cards/Classic/visa_classic_card_400x225.jpg",
       "date_release": "2025-05-28",
       "date_revision": "2026-05-27"
     },
     {
-      "id": "asdasdqqqq",
-      "name": " qqqqqqqqq",
-      "description": "qqqqqqqqqq",
+      "id": "visa-signature",
+      "name": "Visa Signature",
+      "description": "Tarjeta premium con beneficios exclusivos para viajes y entretenimiento.",
       "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
       "date_release": "2025-05-27",
       "date_revision": "2026-05-27"
     },
     {
-      "id": "asasdsadsa",
-      "name": "asdsadasdsa",
-      "description": "sadsadasasd54",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-27"
+      "id": "visa-platinum",
+      "name": "Visa Platinum",
+      "description": "Ideal para compras internacionales y protección contra fraudes.",
+      "logo": "https://latam.mastercard.com/content/dam/public/mastercardcom/lac/mx/home/consumidores/encontrar-una-tarjeta/tarjetas-de-credito/tarjeta-gold/tarjeta-credito-gold-1280x720.jpg",
+      "date_release": "2025-06-01",
+      "date_revision": "2026-06-01"
     },
     {
-      "id": "asdasdqqqq",
-      "name": " qqqqqqqqq",
-      "description": "qqqqqqqqqq",
+      "id": "visa-gold",
+      "name": "Visa Gold",
+      "description": "Tarjeta con cobertura internacional y seguros incluidos.",
       "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-27",
-      "date_revision": "2026-05-27"
+      "date_release": "2025-05-30",
+      "date_revision": "2026-05-30"
     },
     {
-      "id": "asasdsadsa",
-      "name": "asdsadasdsa",
-      "description": "sadsadasasd54",
+      "id": "visa-infinite",
+      "name": "Visa Infinite",
+      "description": "Tarjeta de alta gama con beneficios de lujo, concierge y salas VIP.",
       "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-27"
+      "date_release": "2025-07-01",
+      "date_revision": "2026-07-01"
     },
     {
-      "id": "asdasdqqqq",
-      "name": " qqqqqqqqq",
-      "description": "qqqqqqqqqq",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-27",
-      "date_revision": "2026-05-27"
-    },
-    {
-      "id": "asasdsadsa",
-      "name": "asdsadasdsa",
-      "description": "sadsadasasd54",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-27"
-    },
-    {
-      "id": "asdasdqqqq",
-      "name": " qqqqqqqqq",
-      "description": "qqqqqqqqqq",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-27",
-      "date_revision": "2026-05-27"
-    },
-    {
-      "id": "bvbvbvc",
-      "name": "asdsadsa",
-      "description": "sadsadasasd54",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
+      "id": "visa-business",
+      "name": "Visa Business",
+      "description": "Pensada para empresarios, con herramientas para gestión de gastos.",
+      "logo": "https://previews.123rf.com/images/jameschipper/jameschipper1509/jameschipper150900070/45553514-tarjeta-de-cr%C3%A9dito-roja.jpg",
       "date_release": "2025-05-28",
       "date_revision": "2026-05-28"
     },
     {
-      "id": "fggggggggg",
-      "name": "gggggg",
-      "description": "gggggggggg",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-27",
-      "date_revision": "2026-05-27"
+      "id": "visa-debit",
+      "name": "Visa Débito",
+      "description": "Acceso directo a tu cuenta bancaria, sin deudas.",
+      "logo": "https://previews.123rf.com/images/jameschipper/jameschipper1509/jameschipper150900070/45553514-tarjeta-de-cr%C3%A9dito-roja.jpg",
+      "date_release": "2025-06-10",
+      "date_revision": "2026-06-10"
     },
     {
-      "id": "yyyyyyyy",
-      "name": "yyyyyyyyy",
-      "description": "yyyyyyyyyyy",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-28"
-    },
-    {
-      "id": "qqqqqqqqww",
-      "name": "wwwwwwwww",
-      "description": "eeeeeeeeeeeee",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-28"
-    },
-    {
-      "id": "bbbbbbbbbb",
-      "name": "bbbbbbbbb",
-      "description": "bbbbbbbbbb",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-28"
-    },
-    {
-      "id": "bbbbbbbbbb",
-      "name": "bbbbbbbbb",
-      "description": "bbbbbbbbbb",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-28"
-    },
-    {
-      "id": "asasdsappp",
-      "name": "sdsada",
-      "description": "sadsadasasd54asdsadsadsadsadsaaaaaaaaaaaaaaaaaa",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-28"
-    },
-    {
-      "id": "hhhhhhhhhh",
-      "name": "hhhhhhhh",
-      "description": "hhhhhhhhhh",
-      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
-      "date_release": "2025-05-28",
-      "date_revision": "2026-05-28"
+      "id": "visa-student-001",
+      "name": "Visa Estudiantil",
+      "description": "Diseñada para jóvenes y estudiantes, con límites ajustables.",
+      "logo": "https://previews.123rf.com/images/jameschipper/jameschipper1509/jameschipper150900070/45553514-tarjeta-de-cr%C3%A9dito-roja.jpg",
+      "date_release": "2025-09-01",
+      "date_revision": "2026-09-01"
     }
   ]
 }
