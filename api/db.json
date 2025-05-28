@@ -3,7 +3,7 @@
     {
       "id": "visa-classic",
       "name": "Visa Classic",
-      "description": "Tarjeta de crédito básica con aceptación mundial 65",
+      "description": "Tarjeta de crédito básica con aceptación mundial 45",
       "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Find%20a%20Card/Credit%20cards/Classic/visa_classic_card_400x225.jpg",
       "date_release": "2025-05-28",
       "date_revision": "2026-05-27"
@@ -63,6 +63,14 @@
       "logo": "https://previews.123rf.com/images/jameschipper/jameschipper1509/jameschipper150900070/45553514-tarjeta-de-cr%C3%A9dito-roja.jpg",
       "date_release": "2025-09-01",
       "date_revision": "2026-09-01"
+    },
+    {
+      "id": "trj-cred",
+      "name": "Tarjeta de credito miles",
+      "description": "Tarjeta de credito para jovenes",
+      "logo": "https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg",
+      "date_release": "2025-05-29",
+      "date_revision": "2026-05-29"
     }
   ]
 }

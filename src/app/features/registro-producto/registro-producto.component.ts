@@ -13,8 +13,7 @@ import { Producto } from '../../core/models/producto.interface';
   styleUrl: './registro-producto.component.scss'
 })
 export class RegistroProductoComponent implements OnInit {
-
-  producto = {
+  producto: Producto = {
     id: '',
     name: '',
     description: '',
@@ -23,12 +22,17 @@ export class RegistroProductoComponent implements OnInit {
     date_revision: ''
   };
 
+  originalProducto: Producto | null = null;
   modoEdicion = false;
+
   idVerificadoInvalid = false;
   fechaLiberacionInvalida = false;
   minFechaHoy = new Date().toISOString().split('T')[0];
 
-  mostrarModal = false; // 👉 Modal de éxito
+  // MODALES
+  mostrarModalCreado = false;
+  mostrarModalEditado = false;
+  mostrarModalSinCambios = false;
 
   constructor(
     private productService: ProductService,
@@ -39,39 +43,33 @@ export class RegistroProductoComponent implements OnInit {
   ngOnInit(): void {
     const productoRecibido = history.state.producto as Producto;
     if (productoRecibido) {
-      this.producto = productoRecibido;
+      this.producto = { ...productoRecibido };
+      this.originalProducto = JSON.parse(JSON.stringify(productoRecibido));
       this.modoEdicion = true;
     }
   }
 
- verificarId(): void {
-  if (this.modoEdicion) return; 
+  verificarId(): void {
+    if (this.modoEdicion) return;
 
-  if (this.producto.id.length >= 3 && this.producto.id.length <= 10) {
-    this.productService.verificarId(this.producto.id).subscribe(
-      (exists) => {
-        this.idVerificadoInvalid = exists;
-      },
-      () => {
-        this.idVerificadoInvalid = true;
-      }
-    );
-  } else {
-    this.idVerificadoInvalid = false;
+    if (this.producto.id.length >= 3 && this.producto.id.length <= 10) {
+      this.productService.verificarId(this.producto.id).subscribe(
+        (exists) => {
+          this.idVerificadoInvalid = exists;
+        },
+        () => {
+          this.idVerificadoInvalid = true;
+        }
+      );
+    } else {
+      this.idVerificadoInvalid = false;
+    }
   }
-}
-
-
 
   onFechaLiberacionChange(): void {
-    const hoy = new Date();
-    const yyyy = hoy.getFullYear();
-    const mm = (hoy.getMonth() + 1).toString().padStart(2, '0');
-    const dd = hoy.getDate().toString().padStart(2, '0');
-    const hoyStr = `${yyyy}-${mm}-${dd}`;
+    const hoy = new Date().toISOString().split('T')[0];
     const fechaIngresadaStr = this.producto.date_release;
-
-    this.fechaLiberacionInvalida = fechaIngresadaStr < hoyStr;
+    this.fechaLiberacionInvalida = fechaIngresadaStr < hoy;
 
     if (!this.fechaLiberacionInvalida) {
       const fechaRevision = new Date(fechaIngresadaStr);
@@ -84,19 +82,26 @@ export class RegistroProductoComponent implements OnInit {
 
   onSubmit(): void {
     if (this.modoEdicion && this.producto.id) {
-      const idString = String(this.producto.id);
-      this.productService.updateProducto(idString, this.producto).subscribe(() => {
-        this.mostrarModal = true; 
+      const sinCambios = JSON.stringify(this.producto) === JSON.stringify(this.originalProducto);
+
+      if (sinCambios) {
+        this.mostrarModalSinCambios = true;
+        return;
+      }
+
+      this.productService.updateProducto(this.producto.id, this.producto).subscribe(() => {
+        this.mostrarModalEditado = true;
       });
     } else {
       this.productService.createProducto(this.producto).subscribe(() => {
-        
-        this.mostrarModal = true; 
+        this.mostrarModalCreado = true;
       });
     }
   }
 
   onReset(): void {
+    if (this.modoEdicion) return;
+
     this.producto = {
       id: '',
       name: '',
@@ -112,13 +117,12 @@ export class RegistroProductoComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  
-  irAlFormularioPrincipal(): void {
-    this.mostrarModal = false;
+  cerrarYVolver(): void {
+    this.mostrarModalCreado = false;
+    this.mostrarModalEditado = false;
+    this.mostrarModalSinCambios = false;
     this.router.navigate(['']);
   }
-
-  
 
   productoFormValido(): boolean {
     return this.producto &&

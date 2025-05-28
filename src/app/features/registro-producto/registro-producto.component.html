@@ -13,29 +13,26 @@
     <div class="form-group">
       <label>ID</label>
       <input
-  name="id"
-  [(ngModel)]="producto.id"
-  placeholder="ID entre 3-10 caracteres"
-  #id="ngModel"
-  class="input"
-  [disabled]="modoEdicion"
-  [readonly]="modoEdicion"
-  [required]="!modoEdicion"
-  [pattern]="!modoEdicion ? '^[a-z-]{3,10}$' : ''"
-  [minlength]="!modoEdicion ? 3 : null"
-  [maxlength]="!modoEdicion ? 10 : null"
-  [ngClass]="{
-    'ng-invalid': (id.invalid || idVerificadoInvalid) && !modoEdicion && id.touched,
-    'ng-valid': id.valid && !idVerificadoInvalid && !modoEdicion && id.touched
-  }"
-  (blur)="verificarId()" />
-
-
+        name="id"
+        [(ngModel)]="producto.id"
+        placeholder="ID entre 3-10 caracteres"
+        #id="ngModel"
+        class="input"
+        [disabled]="modoEdicion"
+        [readonly]="modoEdicion"
+        [required]="!modoEdicion"
+        [pattern]="!modoEdicion ? '^[a-z-]{3,10}$' : ''"
+        [minlength]="!modoEdicion ? 3 : null"
+        [maxlength]="!modoEdicion ? 10 : null"
+        [ngClass]="{
+          'ng-invalid': (id.invalid || idVerificadoInvalid) && !modoEdicion && id.touched,
+          'ng-valid': id.valid && !idVerificadoInvalid && !modoEdicion && id.touched
+        }"
+        (blur)="verificarId()" />
 
       <div *ngIf="id.valid && id.touched && !idVerificadoInvalid && !modoEdicion" class="valid-text">
         ID válido
       </div>
-
 
       <div *ngIf="id.invalid && (id.dirty || id.touched) && !modoEdicion" class="error-text">
         <ng-container *ngIf="id.errors?.['required']">¡ID es requerido!</ng-container>
@@ -45,7 +42,6 @@
         <ng-container *ngIf="id.errors?.['pattern']">
           El ID solo puede contener letras minúsculas y guiones.
         </ng-container>
-
       </div>
 
       <div *ngIf="idVerificadoInvalid && !modoEdicion" class="error-text">
@@ -53,16 +49,12 @@
       </div>
     </div>
 
-
     <div class="form-group">
       <label>Nombre</label>
       <input name="name" [(ngModel)]="producto.name" placeholder="Nombre y Apellido 5-100 caracteres"
         pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ ]{5,100}$" #name="ngModel" required minlength="5" maxlength="100" class="input"
         [class.invalid]="name.invalid && (name.dirty || name.touched)" />
-      <div *ngIf="name.valid && name.touched" class="valid-text">
-        Nombre válido
-      </div>
-
+      <div *ngIf="name.valid && name.touched" class="valid-text">Nombre válido</div>
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-text">
         <ng-container *ngIf="name.errors?.['required']">¡Nombre es requerido!</ng-container>
         <ng-container *ngIf="name.errors?.['minlength'] || name.errors?.['maxlength']">
@@ -71,20 +63,15 @@
         <ng-container *ngIf="name.errors?.['pattern']">
           El nombre solo puede contener letras y espacios.
         </ng-container>
-
       </div>
     </div>
-
 
     <div class="form-group">
       <label>Descripción</label>
       <input name="description" [(ngModel)]="producto.description" pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ0-9 ]{10,200}$"
         placeholder="Ingrese de 10-200 caracteres" #desc="ngModel" required minlength="10" maxlength="200" class="input"
         [class.invalid]="desc.invalid && (desc.dirty || desc.touched)" />
-      <div *ngIf="desc.valid && desc.touched" class="valid-text">
-        Descripción válida
-      </div>
-
+      <div *ngIf="desc.valid && desc.touched" class="valid-text">Descripción válida</div>
       <div *ngIf="desc.invalid && (desc.dirty || desc.touched)" class="error-text">
         <ng-container *ngIf="desc.errors?.['required']">¡Descripción es requerida!</ng-container>
         <ng-container *ngIf="desc.errors?.['minlength'] || desc.errors?.['maxlength']">
@@ -93,29 +80,21 @@
         <ng-container *ngIf="desc.errors?.['pattern']">
           La descripción solo puede contener letras, números y espacios.
         </ng-container>
-
-
       </div>
     </div>
-
 
     <div class="form-group">
       <label>Logo</label>
       <input name="logo" [(ngModel)]="producto.logo" pattern="https?:\/\/[\S]+" placeholder="URL" #logo="ngModel"
         required class="input" [class.invalid]="logo.invalid && (logo.dirty || logo.touched)" />
-      <div *ngIf="logo.valid && logo.touched" class="valid-text">
-        URL válida
-      </div>
-
+      <div *ngIf="logo.valid && logo.touched" class="valid-text">URL válida</div>
       <div *ngIf="logo.invalid && (logo.dirty || logo.touched)" class="error-text">
         <ng-container *ngIf="logo.errors?.['required']">Logo es requerido</ng-container>
         <ng-container *ngIf="logo.errors?.['pattern']">
           Ingresa una URL válida que comience con http o https.
         </ng-container>
-
       </div>
     </div>
-
 
     <div class="form-group">
       <label>Fecha Liberación</label>
@@ -123,18 +102,13 @@
         required class="input"
         [class.invalid]="(release.invalid && (release.dirty || release.touched)) || fechaLiberacionInvalida"
         (change)="onFechaLiberacionChange()" />
-
-      <div *ngIf="release.valid && release.touched && !fechaLiberacionInvalida" class="valid-text">
-        Fecha válida
-      </div>
-
+      <div *ngIf="release.valid && release.touched && !fechaLiberacionInvalida" class="valid-text">Fecha válida</div>
       <div *ngIf="(release.invalid && (release.dirty || release.touched)) || fechaLiberacionInvalida"
         class="error-text">
         <ng-container *ngIf="release.errors?.['required']">Fecha de liberación es requerida</ng-container>
         <ng-container *ngIf="fechaLiberacionInvalida">La fecha debe ser igual o mayor a la fecha actual</ng-container>
       </div>
     </div>
-
 
     <div class="form-group">
       <label>Fecha Revisión</label>
@@ -149,7 +123,6 @@
         (click)="onSubmit()">
         Enviar
       </button>
-
     </div>
   </form>
 
@@ -159,14 +132,34 @@
 </div>
 
 
-
-<div class="modal-overlay" *ngIf="mostrarModal">
+<div class="modal-overlay" *ngIf="mostrarModalCreado">
   <div class="modal">
     <p>✅ ¡Producto agregado con éxito!</p>
     <hr />
     <div class="modal-buttons">
+      <button class="btn-confirmar" (click)="cerrarYVolver()">Aceptar</button>
+    </div>
+  </div>
+</div>
 
-      <button class="btn-confirmar" (click)="irAlFormularioPrincipal()">Aceptar</button>
+
+<div class="modal-overlay" *ngIf="mostrarModalEditado">
+  <div class="modal">
+    <p>✅ ¡Producto actualizado con éxito!</p>
+    <hr />
+    <div class="modal-buttons">
+      <button class="btn-confirmar" (click)="cerrarYVolver()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay" *ngIf="mostrarModalSinCambios">
+  <div class="modal">
+    <p>⚠️ ¡No se ha realizado ningún cambio!</p>
+    <hr />
+    <div class="modal-buttons">
+      <button class="btn-confirmar" (click)="cerrarYVolver()">Aceptar</button>
     </div>
   </div>
 </div>
