@@ -10,6 +10,11 @@
     <button class="add-button" (click)="agregarProducto()">Agregar</button>
   </div>
 
+
+  <div *ngIf="loading" class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+
   <div style="overflow-x: auto;">
     <table class="product-table">
       <thead>
@@ -23,6 +28,14 @@
         </tr>
       </thead>
       <tbody>
+     
+        <tr *ngIf="loading">
+          <td colspan="6">
+            <div *ngFor="let s of [1, 2, 3, 4, 5]" class="skeleton-row"></div>
+          </td>
+        </tr>
+
+        <ng-container *ngIf="!loading">
   <tr *ngFor="let producto of paginated">
     <td data-label="Logo"><img [src]="producto.logo" class="logo" alt="logo" /></td>
     <td data-label="Nombre del producto">{{ producto.name }}</td>
@@ -39,11 +52,11 @@
       </div>
     </td>
   </tr>
-</tbody>
+</ng-container>
 
+      </tbody>
     </table>
   </div>
-
 
   <div class="pagination-container">
     <span>{{ totalResultados }} Resultados</span>
@@ -58,10 +71,7 @@
       </button>
     </div>
   </div>
-
-
 </div>
-
 
 <div class="modal-overlay" *ngIf="mostrarModal">
   <div class="modal">

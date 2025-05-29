@@ -3,12 +3,21 @@
     src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Banco_Pichincha_logo.svg/2560px-Banco_Pichincha_logo.svg.png"
     alt="Logo" class="logo-header" />
 </header>
-
-<div class="form-container">
+<div *ngIf="loading" class="skeleton-form">
+  <div class="skeleton-title"></div>
+  <div class="skeleton-line" *ngFor="let i of [].constructor(6)"></div>
+  <div class="skeleton-buttons"></div>
+</div>
+ <div *ngIf="loading" class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+<div class="form-container" *ngIf="!loading">
   <h2 class="form-title">Formulario de Registro</h2>
   <hr />
 
   <form #productoForm="ngForm" class="form-grid">
+
+
 
     <div class="form-group">
       <label>ID</label>

@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Producto } from '../../core/models/producto.interface';
 import { ProductService } from '../../core/services/product.service';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
 
 @Component({
   standalone: true,
@@ -21,6 +24,8 @@ export class ProductListComponent implements OnInit {
   mostrarModal = false;
 
   constructor(private productService: ProductService, private router: Router) {}
+  loading = true;
+
 
   ngOnInit(): void {
     this.cargarProductos();
@@ -55,7 +60,10 @@ export class ProductListComponent implements OnInit {
   }
 
   agregarProducto(): void {
-    this.router.navigate(['/registrar']);
+    this.router.navigate(['/registrar'],{
+    state: {} 
+  });
+
   }
 
   selectProducto(producto: Producto): void {
@@ -63,11 +71,23 @@ export class ProductListComponent implements OnInit {
   }
 
   cargarProductos(): void {
-    this.productService.getProductos().subscribe({
-      next: (data) => this.productos = data,
-      error: () => alert('Error cargando productos')
-    });
-  }
+  this.loading = true;
+
+  this.productService.getProductos().pipe(
+    delay(2000)
+  ).subscribe({
+    next: (data) => {
+      this.productos = data;
+      this.loading = false;
+    },
+    error: () => {
+      alert('Error cargando productos');
+      this.loading = false;
+    }
+  });
+}
+
+
 
   abrirModalEliminar(producto: Producto): void {
     this.productoSeleccionado = producto;

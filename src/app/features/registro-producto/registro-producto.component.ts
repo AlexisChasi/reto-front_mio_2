@@ -29,24 +29,35 @@ export class RegistroProductoComponent implements OnInit {
   fechaLiberacionInvalida = false;
   minFechaHoy = new Date().toISOString().split('T')[0];
 
-  // MODALES
+
   mostrarModalCreado = false;
   mostrarModalEditado = false;
   mostrarModalSinCambios = false;
-
+  loading = true;
   constructor(
     private productService: ProductService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
-    const productoRecibido = history.state.producto as Producto;
-    if (productoRecibido) {
-      this.producto = { ...productoRecibido };
-      this.originalProducto = JSON.parse(JSON.stringify(productoRecibido));
-      this.modoEdicion = true;
-    }
+  async ngOnInit(): Promise<void> {
+  const productoRecibido = history.state.producto as Producto;
+
+  if (productoRecibido) {
+    this.modoEdicion = true;
+
+    await this.sleep(2000);
+    this.producto = { ...productoRecibido };
+    this.originalProducto = JSON.parse(JSON.stringify(productoRecibido));
+  }
+
+  await this.sleep(2000); 
+  this.loading = false;
+}
+
+
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   verificarId(): void {
@@ -118,15 +129,27 @@ export class RegistroProductoComponent implements OnInit {
   }
 
   cerrarYVolver(): void {
+
     this.mostrarModalCreado = false;
     this.mostrarModalEditado = false;
     this.mostrarModalSinCambios = false;
-    this.router.navigate(['']);
+
+
+    setTimeout(() => {
+      this.loading = true;
+
+
+      setTimeout(() => {
+        this.router.navigate(['']);
+      }, 2000);
+    }, 0);
   }
+
+
 
   productoFormValido(): boolean {
     return this.producto &&
-           !this.fechaLiberacionInvalida &&
-           !this.idVerificadoInvalid;
+      !this.fechaLiberacionInvalida &&
+      !this.idVerificadoInvalid;
   }
 }
