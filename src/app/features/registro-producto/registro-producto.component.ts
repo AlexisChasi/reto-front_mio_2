@@ -40,20 +40,21 @@ export class RegistroProductoComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  async ngOnInit(): Promise<void> {
+ async ngOnInit(): Promise<void> {
   const productoRecibido = history.state.producto as Producto;
 
   if (productoRecibido) {
     this.modoEdicion = true;
-
-    await this.sleep(2000);
+    await this.sleep(1500);
     this.producto = { ...productoRecibido };
     this.originalProducto = JSON.parse(JSON.stringify(productoRecibido));
   }
 
-  await this.sleep(2000); 
+  
+  await this.sleep(500);
   this.loading = false;
 }
+
 
 
   private sleep(ms: number): Promise<void> {
@@ -129,27 +130,13 @@ export class RegistroProductoComponent implements OnInit {
   }
 
   cerrarYVolver(): void {
+  this.mostrarModalCreado = false;
+  this.mostrarModalEditado = false;
+  this.mostrarModalSinCambios = false;
 
-    this.mostrarModalCreado = false;
-    this.mostrarModalEditado = false;
-    this.mostrarModalSinCambios = false;
-
-
-    setTimeout(() => {
-      this.loading = true;
-
-
-      setTimeout(() => {
-        this.router.navigate(['']);
-      }, 2000);
-    }, 0);
-  }
+  this.loading = true;
+  setTimeout(() => this.router.navigate(['']), 2000);
+}
 
 
-
-  productoFormValido(): boolean {
-    return this.producto &&
-      !this.fechaLiberacionInvalida &&
-      !this.idVerificadoInvalid;
-  }
 }
